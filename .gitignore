@@ -6,3 +6,4 @@ contacts/agend.txt
 
 #Añadiendo el archivo de ejecucion generado para la compilación
 runable
+*.exe
