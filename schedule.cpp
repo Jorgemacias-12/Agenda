@@ -27,11 +27,12 @@ void insertContact()
     string email;
     start:
         int insertAnotherContact = 0;
-        fstream File;
-        File.open("diary/schedule.txt", ios_base::app);
-        if (File.fail()) 
+        ofstream outputFile("diary/schedule.txt", ios_base::app);
+        ifstream inputFile("tempData.txt", ios_base::app);
+        if (outputFile.fail() && inputFile.fail()) 
         {
             cout << "Algo ha salido mal, vuelve a ejecutar el programa" << endl;
+            system("pause");
         }
         cout << "Introduce tu nombre" << endl;
         cin.ignore();
@@ -42,7 +43,8 @@ void insertContact()
         getline(cin, phone);
         cout << "Introduce tu email" << endl;
         getline(cin, email);
-        File << "\n" << name << "  " << address << "  " << phone << "  " << email << "\n";
+        outputFile << name << "  " << address << "  " << phone << "  " << email << "\n";
+        outputFile << inputFile.rdbuf();
         cout << "¿Desea ingresar otro contacto en la agenda?" << endl;
         cout << "--Si = 1-- --No = 2--" << endl;
         cin >> insertAnotherContact;
@@ -51,7 +53,9 @@ void insertContact()
             clearScreen();
             goto start;
         }  
-        File.close(); 
+        inputFile.close();
+        outputFile.close();
+        remove("tempData.txt");
 }
 
 void appMenu()
