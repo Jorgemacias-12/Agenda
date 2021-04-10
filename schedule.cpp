@@ -1,5 +1,6 @@
 #include <iostream>
 #include <locale.h>
+#include <dirent.h>
 #include <string>
 #include <fstream>
 
@@ -12,55 +13,70 @@ void initLocale()
 
 void clearScreen()
 {
-    #ifdef __linux__
-        system("clear");
-    #elif _WIN32
-        system("cls");
-    #endif
+#ifdef __linux__
+    system("clear");
+#elif _WIN32
+    system("cls");
+#endif
 }
 
-void insertContact() 
+bool is_dir(string dir)
+{
+    DIR *doc;
+    if (doc = opendir(dir.c_str()))
+    {
+        closedir(doc);
+        return true;
+    }
+    return false;
+}
+
+void insertContact()
 {
     string name;
     string address;
     string phone;
     string email;
-    start:
-        int insertAnotherContact = 0;
-        ofstream outputFile("diary/schedule.txt", ios_base::app);
-        ifstream inputFile("tempData.txt", ios_base::app);
-        if (outputFile.fail() && inputFile.fail()) 
-        {
-            cout << "Algo ha salido mal, vuelve a ejecutar el programa" << endl;
-            system("pause");
-        }
-        cout << "Nombre del contacto" << endl;
-        cin.ignore();
-        getline(cin, name);
-        cout << "Dirección del contacto" << endl;
-        getline(cin, address);
-        cout << "Número de telefono del contacto" << endl;
-        getline(cin, phone);
-        cout << "Email del contacto" << endl;
-        getline(cin, email);
-        outputFile << name << "  " << address << "  " << phone << "  " << email << "\n";
-        outputFile << inputFile.rdbuf();
-        cout << "¿Desea ingresar otro contacto en la agenda?" << endl;
-        cout << "--Si = 1-- --No = 2--" << endl;
-        cin >> insertAnotherContact;
-        if (insertAnotherContact == 1) 
-        {
-            clearScreen();
-            goto start;
-        }  
-        inputFile.close();
-        outputFile.close();
-        remove("tempData.txt");
+start:
+    int insertAnotherContact = 0;
+    if (!is_dir("diary")) 
+    {
+        system("mkdir diary");
+    }
+    ofstream outputFile("diary/schedule.txt", ios_base::app);
+    ifstream inputFile("tempData.txt", ios_base::app);
+    if (outputFile.fail() && inputFile.fail())
+    {
+        cout << "Algo ha salido mal, vuelve a ejecutar el programa" << endl;
+        system("pause");
+    }
+    cout << "Nombre del contacto" << endl;
+    cin.ignore();
+    getline(cin, name);
+    cout << "Dirección del contacto" << endl;
+    getline(cin, address);
+    cout << "Número de telefono del contacto" << endl;
+    getline(cin, phone);
+    cout << "Email del contacto" << endl;
+    getline(cin, email);
+    outputFile << name << "  " << address << "  " << phone << "  " << email << "\n";
+    outputFile << inputFile.rdbuf();
+    cout << "¿Desea ingresar otro contacto en la agenda?" << endl;
+    cout << "--Si = 1-- --No = 2--" << endl;
+    cin >> insertAnotherContact;
+    if (insertAnotherContact == 1)
+    {
+        clearScreen();
+        goto start;
+    }
+    inputFile.close();
+    outputFile.close();
+    remove("tempData.txt");
 }
 
 void appMenu()
 {
-    i:
+i:
     int menuOption = 0;
     cout << "---Menú---" << endl;
     cout << "1. Ingresar contactos." << endl;
