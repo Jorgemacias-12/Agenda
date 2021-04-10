@@ -1,6 +1,6 @@
 #include <iostream>
 #include <locale.h>
-#include <string.h>
+#include <string>
 #include <fstream>
 
 using namespace std;
@@ -10,17 +10,13 @@ void initLocale()
     setlocale(LC_ALL, "");
 }
 
-void clearScreen(int os)
+void clearScreen()
 {
-    switch (os)
-    {
-        case 1:
-            system("clear");
-            break;
-        case 2:
-            system("cls");
-            break;
-    }
+    #ifdef __linux__
+        system("clear");
+    #elif _WIN32
+        system("cls");
+    #endif
 }
 
 void insertContact() 
@@ -52,6 +48,7 @@ void insertContact()
         cin >> insertAnotherContact;
         if (insertAnotherContact == 1) 
         {
+            clearScreen();
             goto start;
         }  
         File.close(); 
@@ -77,11 +74,7 @@ void appMenu()
         cout << "Saliendo..." << endl;
         break;
     default:
-        #ifdef __linux__
-            clearScreen(1);
-        #elif _WIN32
-            clearScreen(2);
-        #endif
+        clearScreen();
         goto i;
         break;
     }
