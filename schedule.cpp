@@ -1,5 +1,6 @@
 #include <iostream>
 #include <locale.h>
+#include <string.h>
 #include <fstream>
 
 using namespace std;
