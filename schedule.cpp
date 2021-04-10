@@ -1,5 +1,6 @@
 #include <iostream>
 #include <locale.h>
+#include <fstream>
 
 using namespace std;
 
@@ -21,9 +22,43 @@ void clearScreen(int os)
     }
 }
 
+void insertContact() 
+{
+    string name;
+    string address;
+    string phone;
+    string email;
+    start:
+        int insertAnotherContact = 0;
+        fstream File;
+        File.open("diary/schedule.txt", ios_base::app);
+        if (File.fail()) 
+        {
+            cout << "Algo ha salido mal, vuelve a ejecutar el programa" << endl;
+        }
+        cout << "Introduce tu nombre" << endl;
+        cin.ignore();
+        getline(cin, name);
+        cout << "Introduce tu direccion" << endl;
+        getline(cin, address);
+        cout << "Introduce tu numero de telefono" << endl;
+        getline(cin, phone);
+        cout << "Introduce tu email" << endl;
+        getline(cin, email);
+        File << "\n" << name << "  " << address << "  " << phone << "  " << email << "\n";
+        cout << "¿Desea ingresar otro contacto en la agenda?" << endl;
+        cout << "--Si = 1-- --No = 2--" << endl;
+        cin >> insertAnotherContact;
+        if (insertAnotherContact == 1) 
+        {
+            goto start;
+        }  
+        File.close(); 
+}
+
 void appMenu()
 {
-i:
+    i:
     int menuOption = 0;
     cout << "---Menú---" << endl;
     cout << "1. Ingresar contactos." << endl;
@@ -33,6 +68,7 @@ i:
     switch (menuOption)
     {
     case 1:
+        insertContact();
         break;
     case 2:
         break;
