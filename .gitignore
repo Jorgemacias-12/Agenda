@@ -1,0 +1,5 @@
+#Ignore file with contacts!
+contacts/agend.txt
+
+#Ignore all .o files
+*.o
