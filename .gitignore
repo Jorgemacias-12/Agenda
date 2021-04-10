@@ -3,3 +3,5 @@ contacts/agend.txt
 
 #Ignore all .o files
 *.o
+
+#Añadiendo el archivo de ejecucion generado para la compilación
