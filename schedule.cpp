@@ -34,14 +34,14 @@ void insertContact()
             cout << "Algo ha salido mal, vuelve a ejecutar el programa" << endl;
             system("pause");
         }
-        cout << "Introduce tu nombre" << endl;
+        cout << "Nombre del contacto" << endl;
         cin.ignore();
         getline(cin, name);
-        cout << "Introduce tu direccion" << endl;
+        cout << "Dirección del contacto" << endl;
         getline(cin, address);
-        cout << "Introduce tu numero de telefono" << endl;
+        cout << "Número de telefono del contacto" << endl;
         getline(cin, phone);
-        cout << "Introduce tu email" << endl;
+        cout << "Email del contacto" << endl;
         getline(cin, email);
         outputFile << name << "  " << address << "  " << phone << "  " << email << "\n";
         outputFile << inputFile.rdbuf();
