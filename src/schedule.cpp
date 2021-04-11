@@ -34,7 +34,8 @@ bool is_dir(string dir)
 void showContacts()
 {
     string tempText;
-    cout << "|----------------------- Contactos ------------------------|" << endl;
+    cout << "|----------------------- Contactos -------------------------|" << endl;
+    cout << "|     Name     |    Adresss   |   Phone No.    |   Email    |" << endl;
     ifstream contactsFile;
     contactsFile.open("diary/schedule.txt");
     if (contactsFile.fail())
@@ -45,9 +46,9 @@ void showContacts()
     while (!contactsFile.eof())
     {
         getline(contactsFile, tempText);
-        cout << "  " << tempText << "  " << endl;
+        cout << "|" << tempText << "          |" << endl;
     }
-    cout << "|----------------------------------------------------------|" << endl;
+    cout << "|-----------------------------------------------------------|" << endl;
     contactsFile.close();
 }
 
