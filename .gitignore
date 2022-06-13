@@ -10,3 +10,6 @@ runable
 
 # Ignorar los archivos txt
 *.txt
+
+# Ignorar .vscode
+.vscode/
